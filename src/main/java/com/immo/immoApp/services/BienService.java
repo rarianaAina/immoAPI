@@ -1,6 +1,8 @@
 package com.immo.immoApp.services;
 
 import com.immo.immoApp.model.Biens;
+import com.immo.immoApp.repository.BiensRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,39 +12,27 @@ import java.util.List;
 @Service
 public class BienService {
 
-    List<Biens> biens = new ArrayList<>(Arrays.asList(new Biens("1","Maison",30000),new Biens("2","Villa",40000)));
+    @Autowired
+    BiensRepo biensRepo;
+
     public List<Biens> getBiens() {
-        return biens;
+        return biensRepo.findAll();
     }
 
     public Biens getBienByID(String bienID) {
-        return biens.stream()
-                .filter(b -> b.getBiensID().equals(bienID)) // Utilisation de .equals pour comparer les chaînes
-                .findFirst()
-                .orElse(null); // Utilisation de orElse pour éviter une exception si aucun résultat
+        return biensRepo.findById(bienID).orElse(null);
     }
 
+
     public void addBiens(Biens bien) {
-        biens.add(bien);
+        biensRepo.save(bien);
     }
 
     public void updateBiens(Biens bien) {
-        int index=0;
-        for(int i=0;i<biens.size();i++) {
-            if(biens.get(i).getBiensID().equals(bien.getBiensID())){
-                index = i;
-            }
-        }
-        biens.set(index,bien);
+        biensRepo.save(bien);
     }
 
     public void deleteBiens(String bienID) {
-        int index=0;
-        for(int i=0;i<biens.size();i++) {
-            if(biens.get(i).getBiensID().equals(bienID)){
-                index = i;
-            }
-        }
-        biens.remove(index);
+        biensRepo.deleteById(bienID);
     }
 }

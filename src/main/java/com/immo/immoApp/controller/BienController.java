@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/biens")
+@CrossOrigin
+@RequestMapping("/api/biens")
 public class BienController {
 
     @Autowired
