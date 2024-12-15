@@ -1,5 +1,6 @@
 package com.immo.immoApp.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController {
 
     @RequestMapping("/")
-    public String greet() {
-        return "B-max la beaugosse!!!!!!!!!!";
+    public String greet(HttpServletRequest request) {
+        return "B-max la beaugosse!!!!!!!!!!" + request.getSession().getId();
     }
 }

@@ -2,7 +2,9 @@ package com.immo.immoApp.controller;
 
 import com.immo.immoApp.model.Biens;
 import com.immo.immoApp.services.BienService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,5 +40,10 @@ public class BienController {
     @DeleteMapping("/{id}")
     public void deleteBiens(@PathVariable("id") String bienID) {
         service.deleteBiens(bienID);
+    }
+
+    @GetMapping("/csrf")
+    public CsrfToken getCsrfToken(HttpServletRequest request) {
+        return (CsrfToken) request.getAttribute("_csrf");
     }
 }
